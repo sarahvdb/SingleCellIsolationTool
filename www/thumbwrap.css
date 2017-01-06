@@ -1,0 +1,38 @@
+#thumbwrap {
+	position:relative;
+	border:2px;
+	margin:0px auto;
+	width:200px; height:150px;
+}
+.thumb img { 
+	border:0px solid #000;
+	margin:0px;
+	float:left;
+}
+.thumb span { 
+	position:absolute;
+	visibility:hidden;
+	border:2px solid #ffffff;
+}
+.thumb:hover, .thumb:hover span { 
+	visibility:visible;
+	position:absolute;
+	top:0px; left:0px; 
+	z-index:1;
+}
+.thumb2 img { 
+	border:0px solid #000;
+	margin:0px;
+	float:left;
+}
+.thumb2 span { 
+	position:absolute;
+	visibility:hidden;
+	border:2px solid #ffffff;
+}
+.thumb2:hover, .thumb2:hover span { 
+	visibility:visible;
+	position:absolute;
+	top:0px; right:0px; 
+	z-index:1;
+}
