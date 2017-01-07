@@ -11,7 +11,7 @@
 library(shiny)
 library(shinydashboard)
 library(shinyjs)
-library(DT)					# For datatables
+library(DT)				# For datatables
 library(Hmisc) 				# For capitalize function
 library(shinyBS)
 library(knitr)				# For download
@@ -27,7 +27,7 @@ library(rdrop2)				# Dropbox access
 dropboxDir				<- file.path("App")
 
 #----------------------------------#
-#	DEFINE VARIABLES
+# DEFINE VARIABLES
 #----------------------------------#
 
 choicesMagnification 	<- c("0x","2x","4x","8x")
@@ -147,21 +147,21 @@ server <- function(input,output,session){
     })
     
     #----------------------------------#
-	# SAVE DATA
-	#
+    # SAVE DATA
+    #
     # Save data from user input sheet to 'Documentation'-table of 'CellCelectorApplication'-database
-	# Copy the data from the csv-file to 'Results'-table of 'CellCelectorApplication'-database
+    # Copy the data from the csv-file to 'Results'-table of 'CellCelectorApplication'-database
     #----------------------------------#
     
     saveData		<- reactive({
     
     	# CREATE DATAFRAME 'DATA' FROM USER INPUT SHEET
     	submitter					<- capitalize(input$submitter)
-		data						<- data.frame(input$experimentName, input$dateCellSearch, input$dateCellCelector, submitter, input$detectedCTCs, input$isolatedCTCs, input$controlCells, input$detectionMode, input$magnification, input$buffer, input$volume, input$deposit)
-    	colnames(data)				<- c('ExperimentName','DateCellSearch','DateCellCelector','Submitter','DetectedCTCs','IsolatedCTCs','ControlCells','DetectionMode','Magnification','BufferMedium','PickingVolume','Deposit')
+	data						<- data.frame(input$experimentName, input$dateCellSearch, input$dateCellCelector, submitter, input$detectedCTCs, input$isolatedCTCs, input$controlCells, input$detectionMode, input$magnification, input$buffer, input$volume, input$deposit)
+    	colnames(data)					<- c('ExperimentName','DateCellSearch','DateCellCelector','Submitter','DetectedCTCs','IsolatedCTCs','ControlCells','DetectionMode','Magnification','BufferMedium','PickingVolume','Deposit')
    	
-   		# CREATE DATAFRAME 'CSV' FROM SELECTED .CSV-FILE
-   		inCsvFile 					<- input$csvfile
+   	# CREATE DATAFRAME 'CSV' FROM SELECTED .CSV-FILE
+   	inCsvFile 					<- input$csvfile
     	csv 						<- read.csv2(inCsvFile$datapath)				# Read in csv file
     	
     	# MODIFY CSV-FILE TO INCLUDE COLUMN 'EXPERIMENTNAME'
@@ -184,11 +184,11 @@ server <- function(input,output,session){
 		dbWriteTable(conn = con, name = 'Results', csv, header = TRUE, append = TRUE, row.names = FALSE)
 		
 		# COPY SELECTED .TIF-FILES TO DROPBOX
-    	#inTifFiles 					<- fixUploadedFilesNames(input$tiffiles)
-    	#tif							<- inTifFiles$datapath
-    	#for (i in 1:length(tif)){
-    	#	drop_upload(tif[i], dest = dropboxDir)
-    	#}
+    		#inTifFiles 					<- fixUploadedFilesNames(input$tiffiles)
+    		#tif							<- inTifFiles$datapath
+    		#for (i in 1:length(tif)){
+    		#	drop_upload(tif[i], dest = dropboxDir)
+    		#}
 		
 		# COPY SELECTED .TIF-FILES TO WWW FOLDER
 		if(is.null(input$tiffiles)){
@@ -199,8 +199,7 @@ server <- function(input,output,session){
     		tif							<- inTifFiles$datapath
 			file.copy(tif, "./www/")
 		}
-		
-		
+			
 		# DISCONNECT FROM MYSQL SERVER
 		dbDisconnect(con)
    
@@ -235,14 +234,14 @@ server <- function(input,output,session){
 		closeAlert(session, 'alertIsolatedCTCsID')
     })
 	
-	observeEvent(input$addAnother, {
-  		shinyjs::show("addExperiment")
+    observeEvent(input$addAnother, {
+    		shinyjs::show("addExperiment")
   		shinyjs::hide("thankYou")
-	})	
+    })	
     
-	#----------------------------------#
-	# THANK YOU MESSAGE
-	#----------------------------------#
+    #----------------------------------#
+    # THANK YOU MESSAGE
+    #----------------------------------#
     
     output$thankYouMessage 	<- renderUI({
     	HTML(
@@ -251,8 +250,8 @@ server <- function(input,output,session){
     })
     
     #----------------------------------#
-	# VIEW EXPERIMENT(S)
-	#----------------------------------#
+    # VIEW EXPERIMENT(S)
+    #----------------------------------#
 	
 	# VIEW EXPERIMENT(S) START TAB
 	observe({
