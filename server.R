@@ -21,13 +21,13 @@ library(RMySQL)				# MySQL server access
 library(rdrop2)				# Dropbox access
 
 #----------------------------------#
-# Define directories
+# DEFINE DIRECTORIES
 #----------------------------------#
 
 dropboxDir				<- file.path("App")
 
 #----------------------------------#
-#	Define variables
+#	DEFINE VARIABLES
 #----------------------------------#
 
 choicesMagnification 	<- c("0x","2x","4x","8x")
@@ -37,7 +37,7 @@ choicesVolume			<- c("1 ml", "2 ml", "5 ml")
 choicesDeposit			<- c("PCR Tube", "Slide")
 
 #----------------------------------#
-# Functions
+# FUNCTIONS
 #----------------------------------#
 
 loadExperimentName			<- function(){
@@ -172,10 +172,10 @@ server <- function(input,output,session){
    		
    		# CONNECT TO MYSQL SERVER
 		con <- dbConnect(MySQL(),
-			user 		= 'savan103',
-			password 	= 'Rub1csCub3',
-			host 		= 'savansdbinstance.c2aavosf8ou5.us-west-2.rds.amazonaws.com',
-			dbname 		= 'CellCelectorApplication'
+			user 		= '*******',
+			password 	= '*******',
+			host 		= '*******',
+			dbname		= '*******'
 		)
 		
 		# APPEND DATAFRAME 'DATA' TO EXISTING 'DOCUMENTATION' TABLE
@@ -306,10 +306,10 @@ server <- function(input,output,session){
 	loadDataChoose				<- reactive({
 		if(input$saveButton == 0 | input$saveButton){
 			con 						<- dbConnect(MySQL(),
-				user 		= 'savan103',
-				password 	= 'Rub1csCub3',
-				host 		= 'savansdbinstance.c2aavosf8ou5.us-west-2.rds.amazonaws.com',
-				dbname		= 'CellCelectorApplication'
+				user 		= '*******',
+				password 	= '*******',
+				host 		= '*******',
+				dbname		= '*******'
 			)
 
 			data 						<- dbGetQuery(con, 'SELECT ExperimentName, DateCellCelector, Submitter FROM Documentation')

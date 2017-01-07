@@ -84,6 +84,7 @@ ui = dashboardPage(
 	
 	dashboardBody(
 	
+		# HTML horizontal scroll function
 		tags$head(
       		tags$style(HTML("
                 .dataTables_wrapper { overflow-x: scroll; }
@@ -93,7 +94,8 @@ ui = dashboardPage(
     	tags$head(
 			tags$link(rel = "stylesheet", type = "text/css", href = "thumbwrap.css")
 		),
-	
+		
+		# Alerts
 		bsAlert("alertExperimentName"),
 		bsAlert("alertExperimentName2"),
 		bsAlert("alertCsvFileUpload"),
