@@ -185,7 +185,7 @@ server <- function(input,output,session){
 		
 		# COPY SELECTED .TIF-FILES TO DROPBOX
     		#inTifFiles 					<- fixUploadedFilesNames(input$tiffiles)
-    		#tif							<- inTifFiles$datapath
+    		#tif						<- inTifFiles$datapath
     		#for (i in 1:length(tif)){
     		#	drop_upload(tif[i], dest = dropboxDir)
     		#}
@@ -196,7 +196,7 @@ server <- function(input,output,session){
 		}
 		else{
 		    inTifFiles 					<- fixUploadedFilesNames(input$tiffiles)
-    		tif							<- inTifFiles$datapath
+    		tif						<- inTifFiles$datapath
 			file.copy(tif, "./www/")
 		}
 			
@@ -272,7 +272,7 @@ server <- function(input,output,session){
 
 	})
 	
-	output$tableChoose		<- DT::renderDataTable(
+	output$tableChoose			<- DT::renderDataTable(
 		loadDataChoose(),
 		rownames = FALSE,
 		options = list(paging = FALSE, searching = TRUE, sort = TRUE, info = FALSE, columnDefs = list(list(className = "dt-center", targets = "_all")))
@@ -303,45 +303,45 @@ server <- function(input,output,session){
 	# SHOW VIEW 'EXPERIMENT(S)' -> START TAB
 	loadDataChoose				<- reactive({
 		if(input$saveButton == 0 | input$saveButton){
-			con 						<- dbConnect(MySQL(),
+			con 				<- dbConnect(MySQL(),
 				user 		= '*******',
 				password 	= '*******',
 				host 		= '*******',
 				dbname		= '*******'
 			)
 
-			data 						<- dbGetQuery(con, 'SELECT ExperimentName, DateCellCelector, Submitter FROM Documentation')
+			data 				<- dbGetQuery(con, 'SELECT ExperimentName, DateCellCelector, Submitter FROM Documentation')
 			dbDisconnect(con)
 			data
 		}
 	})
 	
 	# SHOW 'VIEW EXPERIMENT(S)' -> 'SETTINGS' TAB
-	output$tableSettings	<- DT::renderDataTable(
+	output$tableSettings			<- DT::renderDataTable(
 		loadDataSettings()[s(),],
-		class = "compact", escape = FALSE, rownames = FALSE, 
+		class 	= "compact", escape = FALSE, rownames = FALSE, 
 		options = list(paging = FALSE, searching = TRUE, sort = TRUE, info = FALSE, columnDefs = list(list(className = "dt-center", targets = "_all")))
 	)
 	
 	# GENERATE TABLE FOR 'VIEW EXPERIMENT(S)' -> 'RESULTS' TAB
-	loadDataResults					<- function(){
-		selectedExperiments				<- unlist(loadExperimentName())[s()]
+	loadDataResults				<- function(){
+		selectedExperiments			<- unlist(loadExperimentName())[s()]
 		
-		con 							<- dbConnect(MySQL(),
-			user 		= 'savan103',
-			password 	= 'Rub1csCub3',
-			host 		= 'savansdbinstance.c2aavosf8ou5.us-west-2.rds.amazonaws.com',
-			dbname		= 'CellCelectorApplication'
+		con 					<- dbConnect(MySQL(),
+			user 		= '*******',
+			password 	= '*******',
+			host 		= '*******',
+			dbname		= '*******'
 		)
 		
 		paste(selectedExperiments, collapse = ", ")
-		query 							<- sprintf("SELECT * FROM Results WHERE ExperimentName IN ('%s')", paste(selectedExperiments, collapse = "', '"))
-		data							<- dbGetQuery(con, query)
+		query 					<- sprintf("SELECT * FROM Results WHERE ExperimentName IN ('%s')", paste(selectedExperiments, collapse = "', '"))
+		data					<- dbGetQuery(con, query)
 		dbDisconnect(con)
 		
-		table							<- data.frame(matrix(0, nrow = dim(data)[1], ncol = 6))
-		rownames(table)					<- NULL
-		colnames(table)					<- c("Before","After","BF","DAPI","Cy5","FITC")
+		table					<- data.frame(matrix(0, nrow = dim(data)[1], ncol = 6))
+		rownames(table)				<- NULL
+		colnames(table)				<- c("Before","After","BF","DAPI","Cy5","FITC")
 	
 		#----------------------------------#
 		# LOAD TIF IMAGES FROM DROPBOX
@@ -353,12 +353,12 @@ server <- function(input,output,session){
 		#----------------------------------#
 		# LOAD IMAGES FROM WWW FOLDER
 		#----------------------------------#
-		table$"Before"					<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
-		table$"After"					<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
-		table$"BF"						<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
-		table$"DAPI"					<- paste0('<div id="thumbwrap"> <a class = "thumb2" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
-		table$"Cy5"						<- paste0('<div id="thumbwrap"> <a class = "thumb2" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
-		table$"FITC"					<- paste0('<div id="thumbwrap"> <a class = "thumb2" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
+		table$"Before"				<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
+		table$"After"				<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
+		table$"BF"				<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
+		table$"DAPI"				<- paste0('<div id="thumbwrap"> <a class = "thumb2" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
+		table$"Cy5"				<- paste0('<div id="thumbwrap"> <a class = "thumb2" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
+		table$"FITC"				<- paste0('<div id="thumbwrap"> <a class = "thumb2" href = "#"><img src = "blank.jpg" height = "150"/><span><img src = "blank.jpg" height = "500"></span></a></div>')
 
 		data2 <- cbind(data[,1:3], table, data[,4:ncol(data)])
 		
@@ -367,32 +367,32 @@ server <- function(input,output,session){
 		
 		for (i in 1:(dim(data2)[1])){
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Before.tif"))){
-				beforeLink			<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Before.tif")
+				beforeLink		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Before.tif")
 				data2$Before[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',beforeLink,' height = "150"/><span><img src = ',beforeLink,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_After.tif"))){
-				AfterLink		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_After.tif")
+				AfterLink	<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_After.tif")
 				data2$After[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',AfterLink,' height = "150"/><span><img src = ',AfterLink,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_BF.tif"))){
-				BFLink			<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_BF.tif")
+				BFLink		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_BF.tif")
 				data2$BF[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',BFLink,' height = "150"/><span><img src = ',BFLink,' height = "500"></span></a></div>')
 			}
 			
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_DAPI.tif"))){
-				DAPILink		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_DAPI.tif")
+				DAPILink	<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_DAPI.tif")
 				data2$DAPI[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',DAPILink,' height = "150"/><span><img src = ',DAPILink,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Cy5.tif"))){
-				Cy5Link			<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Cy5.tif")
+				Cy5Link		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Cy5.tif")
 				data2$Cy5[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',Cy5Link,' height = "150"/><span><img src = ',Cy5Link,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_FITC.tif"))){
-				FITCLink		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_FITC.tif")
+				FITCLink	<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_FITC.tif")
 				data2$FITC[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',FITCLink,' height = "150"/><span><img src = ',FITCLink,' height = "500"></span></a></div>')
 			}
 			
@@ -401,15 +401,15 @@ server <- function(input,output,session){
 		data2
 	}
 	
-	output$image <- renderUI({
-		link <- drop_media("App/blank.jpg")
+	output$image			<- renderUI({
+		link 				<- drop_media("App/blank.jpg")
 		tags$img(src = drop_media("App/blank.jpg")$url)
 	})
 	
 	# SHOW 'VIEW EXPERIMENT(S)' -> 'RESULTS' TAB
-	output$tableResults	<- DT::renderDataTable({
+	output$tableResults		<- DT::renderDataTable({
 		DT::datatable(loadDataResults()[, input$showColumns, drop = FALSE],
-		class = "compact", escape = FALSE, rownames = FALSE, 
+		class 	= "compact", escape = FALSE, rownames = FALSE, 
 		options = list(paging = FALSE, searching = TRUE, sort = TRUE, info = FALSE, columnDefs = list(list(className = "dt-center", targets = "_all"))))
 	})
 		
