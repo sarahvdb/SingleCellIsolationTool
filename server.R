@@ -42,10 +42,10 @@ choicesDeposit			<- c("PCR Tube", "Slide")
 
 loadExperimentName			<- function(){
 		con 					<- dbConnect(MySQL(),
-		user 		= 'savan103',
-		password 	= 'Rub1csCub3',
-		host 		= 'savansdbinstance.c2aavosf8ou5.us-west-2.rds.amazonaws.com',
-		dbname		= 'CellCelectorApplication'
+		user 		= '*******',
+		password 	= '*******',
+		host 		= '*******',
+		dbname		= '*******'
 	)
 
 	data 						<- dbGetQuery(con, 'SELECT ExperimentName FROM Documentation')
