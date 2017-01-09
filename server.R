@@ -27,15 +27,11 @@ library(rdrop2)				# Dropbox access
 dropboxDir				<- file.path("App")
 
 #----------------------------------#
-<<<<<<< Updated upstream
 # DEFINE VARIABLES
-=======
-#	Define variables
->>>>>>> Stashed changes
 #----------------------------------#
 
-choicesMagnification 	<- c("0x","2x","4x","8x")
-choicesDetectionMode	<- c("Manual","Automatic")
+choicesMagnification 		<- c("0x","2x","4x","8x")
+choicesDetectionMode		<- c("Manual","Automatic")
 choicesBuffer			<- c("Water", "PBS")
 choicesVolume			<- c("1 ml", "2 ml", "5 ml")
 choicesDeposit			<- c("PCR Tube", "Slide")
@@ -59,10 +55,10 @@ loadExperimentName			<- function(){
 
 loadDataSettings			<- function(){
 	con 						<- dbConnect(MySQL(),
-		user 		= 'savan103',
-		password 	= 'Rub1csCub3',
-		host 		= 'savansdbinstance.c2aavosf8ou5.us-west-2.rds.amazonaws.com',
-		dbname		= 'CellCelectorApplication'
+		user 		= '*******',
+		password 	= '*******',
+		host 		= '*******',
+		dbname		= '*******'
 	)
 
 	data 						<- dbGetQuery(con, 'SELECT * FROM Documentation')
@@ -175,10 +171,10 @@ server <- function(input,output,session){
    		
    		# CONNECT TO MYSQL SERVER
 		con <- dbConnect(MySQL(),
-			user 		= 'savan103',
-			password 	= 'Rub1csCub3',
-			host 		= 'savansdbinstance.c2aavosf8ou5.us-west-2.rds.amazonaws.com',
-			dbname 		= 'CellCelectorApplication'
+			user 		= '*******',
+			password 	= '*******',
+			host 		= '*******',
+			dbname		= '*******'
 		)
 		
 		# APPEND DATAFRAME 'DATA' TO EXISTING 'DOCUMENTATION' TABLE
@@ -243,15 +239,10 @@ server <- function(input,output,session){
   		shinyjs::hide("thankYou")
     })	
     
-<<<<<<< Updated upstream
-    #----------------------------------#
-    # THANK YOU MESSAGE
-    #----------------------------------#
-=======
 	#----------------------------------#
 	# HTML OUTPUT MESSAGES
 	#----------------------------------#
->>>>>>> Stashed changes
+
     
     output$thankYouMessage 	<- renderUI({
     	HTML(
@@ -263,7 +254,7 @@ server <- function(input,output,session){
     	HTML("Welcome Single Cell Isolation Experiment (SCIE) Documentation Tool", '<br/>', '<br/>', "You can use this tool to automatically store, manage and retrieve all experimental results from the single cell isolation experiments conducted by the CellCelector. Use the menu on the left to mavigate through the site. For questions and problems, contact savan103@hhu.de.") 	
     })
     
-    #----------------------------------#
+    	#----------------------------------#
 	# VALUE BOXES
 	#----------------------------------#
     
@@ -335,19 +326,12 @@ server <- function(input,output,session){
 	# SHOW VIEW 'EXPERIMENT(S)' -> START TAB
 	loadDataChoose				<- reactive({
 		if(input$saveButton == 0 | input$saveButton){
-<<<<<<< Updated upstream
 			con 				<- dbConnect(MySQL(),
 				user 		= '*******',
 				password 	= '*******',
 				host 		= '*******',
 				dbname		= '*******'
-=======
-			con 						<- dbConnect(MySQL(),
-				user 		= 'savan103',
-				password 	= 'Rub1csCub3',
-				host 		= 'savansdbinstance.c2aavosf8ou5.us-west-2.rds.amazonaws.com',
-				dbname		= 'CellCelectorApplication'
->>>>>>> Stashed changes
+
 			)
 
 			data 				<- dbGetQuery(con, 'SELECT ExperimentName, DateCellCelector, Submitter FROM Documentation')
@@ -407,56 +391,32 @@ server <- function(input,output,session){
 		
 		for (i in 1:(dim(data2)[1])){
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Before.tif"))){
-<<<<<<< Updated upstream
-				beforeLink		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Before.tif")
-=======
 				beforeLink			<- paste0(data2$ExperimentName[i],"_",data2$ParticleID[i],"_Before.tif")
->>>>>>> Stashed changes
 				data2$Before[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',beforeLink,' height = "150"/><span><img src = ',beforeLink,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_After.tif"))){
-<<<<<<< Updated upstream
-				AfterLink	<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_After.tif")
-=======
 				AfterLink		<- paste0(data2$ExperimentName[i],"_",data2$ParticleID[i],"_After.tif")
->>>>>>> Stashed changes
 				data2$After[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',AfterLink,' height = "150"/><span><img src = ',AfterLink,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_BF.tif"))){
-<<<<<<< Updated upstream
-				BFLink		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_BF.tif")
-=======
 				BFLink			<- paste0(data2$ExperimentName[i],"_",data2$ParticleID[i],"_BF.tif")
->>>>>>> Stashed changes
 				data2$BF[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',BFLink,' height = "150"/><span><img src = ',BFLink,' height = "500"></span></a></div>')
 			}
 			
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_DAPI.tif"))){
-<<<<<<< Updated upstream
-				DAPILink	<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_DAPI.tif")
-=======
 				DAPILink		<- paste0(data2$ExperimentName[i],"_",data2$ParticleID[i],"_DAPI.tif")
->>>>>>> Stashed changes
 				data2$DAPI[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',DAPILink,' height = "150"/><span><img src = ',DAPILink,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Cy5.tif"))){
-<<<<<<< Updated upstream
-				Cy5Link		<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_Cy5.tif")
-=======
 				Cy5Link			<- paste0(data2$ExperimentName[i],"_",data2$ParticleID[i],"_Cy5.tif")
->>>>>>> Stashed changes
 				data2$Cy5[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',Cy5Link,' height = "150"/><span><img src = ',Cy5Link,' height = "500"></span></a></div>')
 			}
 
 			if(file.exists(paste0("www/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_FITC.tif"))){
-<<<<<<< Updated upstream
-				FITCLink	<- paste0("/",data2$ExperimentName[i],"_",data2$ParticleID[i],"_FITC.tif")
-=======
 				FITCLink		<- paste0(data2$ExperimentName[i],"_",data2$ParticleID[i],"_FITC.tif")
->>>>>>> Stashed changes
 				data2$FITC[i] 	<- paste0('<div id="thumbwrap"> <a class = "thumb" href = "#"><img src = ',FITCLink,' height = "150"/><span><img src = ',FITCLink,' height = "500"></span></a></div>')
 			}
 			
@@ -465,17 +425,15 @@ server <- function(input,output,session){
 		data2
 	}
 	
-<<<<<<< Updated upstream
 	output$image			<- renderUI({
 		link 				<- drop_media("App/blank.jpg")
 		tags$img(src = drop_media("App/blank.jpg")$url)
 	})
-=======
+
 	#output$cellCelectorImage <- renderImage({
 	#	list(img(src = "www/blank.jpg", width = "100"))
 	#})
->>>>>>> Stashed changes
-	
+
 	# SHOW 'VIEW EXPERIMENT(S)' -> 'RESULTS' TAB
 	output$tableResults		<- DT::renderDataTable({
 		DT::datatable(loadDataResults()[, input$showColumns, drop = FALSE],
