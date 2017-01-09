@@ -11,7 +11,7 @@
 library(shiny)
 library(shinydashboard)
 library(shinyjs)
-library(DT)					# For datatables
+library(DT)				# For datatables
 library(Hmisc) 				# For capitalize function
 library(shinyBS)
 library(knitr)				# For download
@@ -24,8 +24,8 @@ library(rdrop2)				# Dropbox access
 # VARIABLES
 #----------------------------------#
 
-choicesMagnification 	<- c("0x","2x","4x","8x")
-choicesDetectionMode	<- c("Manual","Automatic")
+choicesMagnification 		<- c("0x","2x","4x","8x")
+choicesDetectionMode		<- c("Manual","Automatic")
 choicesBuffer			<- c("Water", "PBS")
 choicesVolume			<- c("1 ml", "2 ml", "5 ml")
 choicesDeposit			<- c("PCR Tube", "Slide")
@@ -172,7 +172,7 @@ ui = dashboardPage(
 								),
 								tabPanel("Results",
 									#fluidRow(tweaks, column(width = 12, controls),
-									#			column(width = 8, DT::dataTableOutput("tableResults")))
+									#column(width = 8, DT::dataTableOutput("tableResults")))
 									tweaks,
 									controls,
 									DT::dataTableOutput("tableResults"),
