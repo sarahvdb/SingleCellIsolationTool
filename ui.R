@@ -70,21 +70,22 @@ controls <- tags$div(align = "left",
 ui = dashboardPage(
 
 	dashboardHeader(
-		title = "CellCelector"
+		title = "SCIE Documentation"
 	),
 	
 	dashboardSidebar(
 		sidebarMenu(id = "tabs",
+			menuItem("Home", icon = icon("home"), tabName = "home"),
 			menuItem("Add Experiment(s)", icon = icon("edit"), tabName = "add"),
 			menuItem("View Experiment(s)", icon = icon("clone"), tabName = "view"),
-			menuItem("Analysis", icon = icon("area-chart"), tabName = "analysis"),
-			menuItem("Performance", icon = icon("line-chart"), tabName = "performance")
+			menuItem("Analysis", icon = icon("area-chart"), tabName = "analysis")
+#			,
+#			menuItem("Performance", icon = icon("line-chart"), tabName = "performance")
 		)
 	),
 	
 	dashboardBody(
 	
-		# HTML horizontal scroll function
 		tags$head(
       		tags$style(HTML("
                 .dataTables_wrapper { overflow-x: scroll; }
@@ -94,8 +95,7 @@ ui = dashboardPage(
     	tags$head(
 			tags$link(rel = "stylesheet", type = "text/css", href = "thumbwrap.css")
 		),
-		
-		# Alerts
+	
 		bsAlert("alertExperimentName"),
 		bsAlert("alertExperimentName2"),
 		bsAlert("alertCsvFileUpload"),
@@ -110,6 +110,18 @@ ui = dashboardPage(
 		fluidRow(
 			useShinyjs(),
 			tabItems(
+				tabItem("home",
+					box(width = 12,
+						title = "Home", status = "primary", solidHeader = TRUE, collapsible = FALSE,	
+						div(
+							id = "home",
+							htmlOutput('homeText'),
+							br(),
+							HTML('<center><img src="cellcelector.jpg" width="400"></center>')
+						)
+					)
+				),	
+					
 				tabItem("add",
 					box(width = 12,
 						title = "Add experiment(s)", status = "primary", solidHeader = TRUE, collapsible = FALSE,	
@@ -134,8 +146,7 @@ ui = dashboardPage(
 						),
 					
 						hidden(
-							div(
-								id = "thankYou",
+							div(id = "thankYou",
 								htmlOutput("thankYouMessage"),
 								actionButton("addAnother", "Add another experiment", style="color: #fff; background-color: #3c8dbc; border-color: #2e6da4")
 							)
@@ -164,7 +175,10 @@ ui = dashboardPage(
 									#			column(width = 8, DT::dataTableOutput("tableResults")))
 									tweaks,
 									controls,
-									DT::dataTableOutput("tableResults")
+									DT::dataTableOutput("tableResults"),
+									br(),
+									actionButton("download", label = "Download", icon("download"), style="color: #fff; background-color: #3c8dbc; border-color: #2e6da4"),
+									actionButton("switchTab", label = "Further analysis", icon("area-chart"), style= "color: #fff; background-color: #3c8dbc; border-color: #2e6da4") 
 								)
 							)
 						)
@@ -176,19 +190,19 @@ ui = dashboardPage(
 						box(
 							width = 12,
 							title = "Analysis", status = "primary", solidHeader = TRUE, collapsible = FALSE
-							, htmlOutput('image')
 						)	
 					)
-				),
-				
-				tabItem("performance",
-					div(id = "performanceDiv",
-						box(
-							width = 12,
-							title = "Performance", status = "primary", solidHeader = TRUE, collapsible = FALSE
-						)	
-					)
-				)	
+				)
+#				,
+#				
+#				tabItem("performance",
+#					div(id = "performanceDiv",
+#						box(
+#							width = 12,
+#							title = "Performance", status = "primary", solidHeader = TRUE, collapsible = FALSE
+#						)	
+#					)
+#				)	
 			)
 		)
 	)	
